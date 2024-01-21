@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberBot.Telegram", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberBot.Kernel", "src\RememberBot.Kernel\RememberBot.Kernel.csproj", "{73D0254D-B3CE-4125-BEEA-60ED571CF09A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberBot.UnitTest", "src\RememberBot.UnitTest\RememberBot.UnitTest.csproj", "{93632FAC-822A-430D-8BD7-BBDBC9A47C0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{73D0254D-B3CE-4125-BEEA-60ED571CF09A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D0254D-B3CE-4125-BEEA-60ED571CF09A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73D0254D-B3CE-4125-BEEA-60ED571CF09A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93632FAC-822A-430D-8BD7-BBDBC9A47C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93632FAC-822A-430D-8BD7-BBDBC9A47C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93632FAC-822A-430D-8BD7-BBDBC9A47C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93632FAC-822A-430D-8BD7-BBDBC9A47C0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
