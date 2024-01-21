@@ -1,4 +1,5 @@
 using RememberBot.Kernel.PipelineContext.Results;
+using RememberBot.TelegramWorker.DataBaseContext.Tables;
 using Telegram.Bot.Types.Enums;
 
 namespace RememberBot.Kernel.PipelineContext.Implementation.Pipeline;
@@ -11,7 +12,7 @@ public class Pipeline {
         return this;
     }
 
-    public PipelineResult Execute(User? user, PipelineContext pipelineContext) {
+    public PipelineResult Execute(TelegramUser? user, PipelineContext pipelineContext) {
 
         PipelineResult result = new PipelineResult();
         

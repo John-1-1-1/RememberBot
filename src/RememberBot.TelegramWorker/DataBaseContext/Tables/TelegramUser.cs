@@ -1,6 +1,6 @@
-namespace RememberBot.Kernel.PipelineContext;
+namespace RememberBot.TelegramWorker.DataBaseContext.Tables;
 
-public class User {
+public class TelegramUser {
     public int Id { get; set; }
     public long TgId { get; set; }
     public int? LocalTime { get; set; }

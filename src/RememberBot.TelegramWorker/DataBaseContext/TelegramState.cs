@@ -1,4 +1,4 @@
-namespace RememberBot.Kernel.PipelineContext;
+namespace RememberBot.TelegramWorker.DataBaseContext;
 
 public enum TelegramState {
     None,

@@ -1,4 +1,4 @@
-namespace RememberBot.Telegram;
+namespace RememberBot.TelegramWorker;
 
 public class Worker : BackgroundService
 {
