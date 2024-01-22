@@ -1,14 +1,15 @@
+using RememberBot.Kernel.PipelineContext.Implementation.Unit;
 using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.TelegramWorker.DataBaseContext.Tables;
 using Telegram.Bot.Types.Enums;
 
-namespace RememberBot.Kernel.PipelineContext.Implementation.Pipeline;
+namespace RememberBot.Kernel.PipelineContext.Implementation;
 
 public class Pipeline {
-    private readonly ICollection<PipelineUnit> _pipelineUnits = new List<PipelineUnit>();
+    private readonly ICollection<PipelineStep> _pipelineUnits = new List<PipelineStep>();
 
-    public Pipeline AddUnit(PipelineUnit pipelineUnit) {
-        _pipelineUnits.Add(pipelineUnit);
+    public Pipeline AddUnit(PipelineStep pipelineStep) {
+        _pipelineUnits.Add(pipelineStep);
         return this;
     }
 

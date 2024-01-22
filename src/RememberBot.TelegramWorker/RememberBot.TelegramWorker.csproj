@@ -19,4 +19,8 @@
         <HintPath>..\..\..\..\.nuget\packages\telegram.bot\20.0.0-alpha.1\lib\net6.0\Telegram.Bot.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="PipelineSteps\" />
+    </ItemGroup>
 </Project>
