@@ -1,3 +1,7 @@
+using RememberBot.Kernel.PipelineContext.Implementation;
+using RememberBot.Kernel.Tables;
+using RememberBot.TelegramWorker.DataBaseContext;
+using RememberBot.TelegramWorker.Services;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -7,11 +11,16 @@ namespace RememberBot.TelegramWorker.TelegramBotClient;
 
 public class TelegramClient {
     public readonly ITelegramBotClient Client;
-    private readonly ReceiverOptions _receiverOptions;  
+    private readonly ReceiverOptions _receiverOptions;
+    private PipelinesDistributor? _pipelinesDistributor;
+    private DataBaseService? _dataBaseService;
     
     public TelegramClient(ILogger<TelegramClient> logger,
         IServiceProvider serviceProvider, IConfiguration configuration) {
-       
+
+        _pipelinesDistributor = serviceProvider.GetService<PipelinesDistributor>();
+        _dataBaseService = serviceProvider.GetService<DataBaseService>();
+        
         var token = configuration.GetValue<String>("TelegramToken");
 
         if (token == null) {
@@ -35,8 +44,16 @@ public class TelegramClient {
     
     private Task UpdateHandler(ITelegramBotClient botClient,
         Update update, CancellationToken cancellationToken) {
-        try { 
-            // pipeline
+        try {
+            PipelineContext pipelineContext = new PipelineContext() {
+                Message = update.Message,
+                CallbackQuery = update.CallbackQuery,
+                Type = update.Type 
+            };
+            
+            // User? user = _dataBaseService.GetUser(update)
+            //
+            // _pipelinesDistributor.Execute( pipelineContext, )
         }
         catch {
             // ignored

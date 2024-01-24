@@ -1,4 +1,4 @@
-namespace RememberBot.TelegramWorker.DataBaseContext.Tables;
+namespace RememberBot.Kernel.Tables;
 
 public class TelegramUser {
     public int Id { get; set; }

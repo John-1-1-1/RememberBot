@@ -1,18 +1,20 @@
+using RememberBot.Kernel;
 using RememberBot.Kernel.PipelineContext.Implementation;
 using RememberBot.Kernel.PipelineContext.Implementation.Unit;
 using RememberBot.Kernel.PipelineContext.Results;
+using RememberBot.Kernel.Tables;
 using RememberBot.TelegramWorker.DataBaseContext;
-using RememberBot.TelegramWorker.DataBaseContext.Tables;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace RememberBot.UnitTest;
 
 public class TestPipelineStep: PipelineStep {
-    public override PipelineResult UpdateMessage(PipelineResult pipelineResult, Message message, TelegramUser? user) {
+    public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
+        var pipelineResult = new PipelineResult(); 
         pipelineResult.MessageResult.Text = "text";
         pipelineResult.MessageResult.TgId = 123;
-        return base.UpdateMessage(pipelineResult, message, user);
+        return pipelineResult;
     }
 }
 

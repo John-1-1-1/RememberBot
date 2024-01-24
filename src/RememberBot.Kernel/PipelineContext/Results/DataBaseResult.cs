@@ -1,4 +1,4 @@
-using RememberBot.TelegramWorker.DataBaseContext.Tables;
+using RememberBot.Kernel.Tables;
 
 namespace RememberBot.Kernel.PipelineContext.Results;
 

@@ -1,6 +1,6 @@
 using RememberBot.Kernel.PipelineContext.Implementation.Unit;
 using RememberBot.Kernel.PipelineContext.Results;
-using RememberBot.TelegramWorker.DataBaseContext.Tables;
+using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types.Enums;
 
 namespace RememberBot.Kernel.PipelineContext.Implementation;
@@ -19,10 +19,10 @@ public class Pipeline {
         
         foreach (var unit in _pipelineUnits) {
             if (pipelineContext.Type == UpdateType.Message && pipelineContext.Message != null) {
-                result = unit.UpdateMessage(result, pipelineContext.Message, user);
+                result = unit.UpdateMessage(pipelineContext.Message, user);
             }
             if (pipelineContext.Type == UpdateType.CallbackQuery && pipelineContext.CallbackQuery != null) {
-                result = unit.UpdateCallbackQuery(result, pipelineContext.CallbackQuery, user);
+                result = unit.UpdateCallbackQuery(pipelineContext.CallbackQuery, user);
             }
             if (!result.IsNull()) {
                 break;

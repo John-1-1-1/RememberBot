@@ -1,6 +1,5 @@
 using RememberBot.Kernel.PipelineContext.Results;
-using RememberBot.TelegramWorker.DataBaseContext;
-using RememberBot.TelegramWorker.DataBaseContext.Tables;
+using RememberBot.Kernel.Tables;
 
 namespace RememberBot.Kernel.PipelineContext.Implementation;
 

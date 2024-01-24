@@ -3,7 +3,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace RememberBot.Kernel.PipelineContext.Results;
 
 public class MessageResult {
-    public readonly ReplyKeyboardMarkup? ReplyKeyboardMarkup;
+    public ReplyKeyboardMarkup? ReplyKeyboardMarkup;
     public string? Text;
     public long? TgId;
 

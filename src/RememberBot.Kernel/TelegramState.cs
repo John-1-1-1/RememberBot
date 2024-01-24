@@ -1,4 +1,4 @@
-namespace RememberBot.TelegramWorker.DataBaseContext;
+namespace RememberBot.Kernel;
 
 public enum TelegramState {
     None,

@@ -13,14 +13,14 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
     </ItemGroup>
-
+    
     <ItemGroup>
       <Reference Include="Telegram.Bot">
         <HintPath>..\..\..\..\.nuget\packages\telegram.bot\20.0.0-alpha.1\lib\net6.0\Telegram.Bot.dll</HintPath>
       </Reference>
     </ItemGroup>
-
+    
     <ItemGroup>
-      <Folder Include="PipelineSteps\" />
+      <ProjectReference Include="..\RememberBot.Kernel\RememberBot.Kernel.csproj" />
     </ItemGroup>
 </Project>
