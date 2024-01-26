@@ -19,21 +19,21 @@ var builder = Host.CreateApplicationBuilder(args);
 
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Configuration.AddJsonFile("token.json");
-builder.Services.AddSingleton<TelegramClient>();
-builder.Services.AddSingleton<DataBaseService>();
-builder.Services.AddSingleton<PipelinesDistributor>(
-    new PipelinesDistributor().AddUnit(
-        new Pipeline().AddUnit(new StartCommand())
-        , TelegramState.None)
-    );
-
-builder.Services.AddHostedService<Worker>();
 
 var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
 optionsBuilder.UseNpgsql(connection);
 builder.Services.AddScoped<ApplicationContext>(db 
     => new ApplicationContext(optionsBuilder.Options));
+
+builder.Configuration.AddJsonFile("token.json");
+builder.Services.AddSingleton<DataBaseService>();
+builder.Services.AddSingleton(
+    new PipelinesDistributor().AddUnit(
+        new Pipeline().AddUnit(new StartCommand()),
+        TelegramState.None)
+    );
+
+builder.Services.AddHostedService<TelegramWorker>();
 
 var host = builder.Build();
 host.Run();

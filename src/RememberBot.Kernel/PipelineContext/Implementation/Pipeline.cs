@@ -24,7 +24,7 @@ public class Pipeline {
             if (pipelineContext.Type == UpdateType.CallbackQuery && pipelineContext.CallbackQuery != null) {
                 result = unit.UpdateCallbackQuery(pipelineContext.CallbackQuery, user);
             }
-            if (!result.IsNull()) {
+            if (result.MessageResult.TgId != null) {
                 break;
             }
         }

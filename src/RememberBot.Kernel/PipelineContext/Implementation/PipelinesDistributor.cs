@@ -14,9 +14,10 @@ public class PipelinesDistributor {
         return this;
     }
 
-    public PipelineResult Execute(TelegramUser? user, PipelineContext pipelineContext, TelegramState state) {
+    public PipelineResult Execute(TelegramUser? user, PipelineContext pipelineContext) {
         foreach (var pipeline in Pipelines) {
-            if (state == pipeline.state) {
+            var state = user?.UserState ?? TelegramState.None;
+            if ( state == pipeline.state) {
                 return pipeline.pipeline.Execute(user, pipelineContext);
             } 
         }

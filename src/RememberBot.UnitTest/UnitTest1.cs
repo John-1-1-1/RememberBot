@@ -45,7 +45,7 @@ public class UnitTest1 {
             new TelegramUser(), new PipelineContext() {
             Type = UpdateType.Message,
             Message = new Message()
-        }, TelegramState.None);
+        });
 
         Assert.Equal("text", result.MessageResult.Text);
         Assert.Equal(123, result.MessageResult.TgId);
