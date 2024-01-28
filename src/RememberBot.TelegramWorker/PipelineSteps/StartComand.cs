@@ -14,35 +14,16 @@ public class StartCommand: PipelineStep {
             if (message.Text != "/start") {
             return pipelineResult;
         }
-        
+            
         if (user != null) {
-            pipelineResult.MessageResult = new MessageResult() {
-                ReplyKeyboardMarkup = new ReplyKeyboardMarkup(
-                    new KeyboardButton[] {
-                        new("Список дел"),
-                        new("Местное время"),
-                    }),
-                Text = "Вы уже зарегестрированы!",
-                TgId = message.Chat.Id
-            };
+            pipelineResult.MessageResult = 
+                StartMessageBuilder.SuccessRegistered(message.Chat.Id);
         }
         else {
-            pipelineResult.MessageResult = new MessageResult() {
-                ReplyKeyboardMarkup = new ReplyKeyboardMarkup(
-                    new KeyboardButton[] { 
-                        new("Список дел"), 
-                        new("Местное время"),
-                    }),
-                Text = """
-                       Вы успешно зарегистрировались!
-                       
-                       Для корректной работы бота, воспользуйтесь кнопкой "Часовой пояс", чтобы бот учитывал ваше время при добавлении и отслеживании задач.
-                       """,
-                TgId = message.Chat.Id
-            };
-
-            pipelineResult.DataBaseResult.User = new TelegramUser() {
-                TgId = message.Chat.Id };
+            pipelineResult.MessageResult = 
+                StartMessageBuilder.AlreadyRegistered(message.Chat.Id);
+            pipelineResult.DataBaseResult = new DataBaseResult(){User = new TelegramUser() {
+                TgId = message.Chat.Id }};
         }
 
         return pipelineResult;

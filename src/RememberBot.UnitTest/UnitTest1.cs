@@ -19,9 +19,8 @@ public class TestPipelineStep: PipelineStep {
 }
 
 public class UnitTest1 {
-    
     [Fact]
-    public void Test1() {
+    public void PipelineTest_TrueResult() {
         Pipeline pipeline = new Pipeline();
         pipeline.AddUnit(new TestPipelineStep());
         
@@ -29,13 +28,12 @@ public class UnitTest1 {
             Type = UpdateType.Message,
             Message = new Message()
         });
-
         Assert.Equal("text", result.MessageResult.Text);
         Assert.Equal(123, result.MessageResult.TgId);
     }
-    
+
     [Fact]
-    public void Test2() {
+    public void PipelinesDistributor_TrueResult() {
         PipelinesDistributor pipelinesDistributor = new PipelinesDistributor();
         Pipeline pipeline = new Pipeline();
         pipeline.AddUnit(new TestPipelineStep());
