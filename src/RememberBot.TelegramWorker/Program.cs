@@ -28,9 +28,16 @@ builder.Services.AddScoped<ApplicationContext>(db
 builder.Configuration.AddJsonFile("token.json");
 builder.Services.AddSingleton<DataBaseService>();
 builder.Services.AddSingleton(
-    new PipelinesDistributor().AddUnit(
-        new Pipeline().AddUnit(new StartCommand()),
+    new PipelinesDistributor()
+        .AddUnit(
+        new Pipeline()
+            .AddUnit(new StartCommand())
+            .AddUnit(new ChangeLocalTimeButton()),
         TelegramState.None)
+        .AddUnit(
+        new Pipeline()
+            .AddUnit(new CancelButton()),
+        TelegramState.ChangeLocalTime)
     );
 
 builder.Services.AddHostedService<TelegramWorker>();

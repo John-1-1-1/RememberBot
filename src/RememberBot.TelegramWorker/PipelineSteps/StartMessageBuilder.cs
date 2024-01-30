@@ -7,7 +7,7 @@ public static class StartMessageBuilder {
     
     public static MessageResult SuccessRegistered(long id) => 
         new MessageResult() { 
-            ReplyKeyboardMarkup = new ReplyKeyboardMarkup(
+            ReplyMarkup = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                     new("Список дел"),
                     new("Местное время"),
@@ -18,7 +18,7 @@ public static class StartMessageBuilder {
     
     public static MessageResult AlreadyRegistered(long id) => 
         new MessageResult() { 
-            ReplyKeyboardMarkup = new ReplyKeyboardMarkup(
+            ReplyMarkup = new ReplyKeyboardMarkup(
             new KeyboardButton[] { 
                 new("Список дел"), 
                 new("Местное время"),

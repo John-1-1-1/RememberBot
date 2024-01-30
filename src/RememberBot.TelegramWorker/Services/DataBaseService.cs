@@ -22,15 +22,17 @@ public class DataBaseService {
         }
     }
 
-    public void AddUser(long chatId, TelegramState state) {
+    public void AddUser(TelegramUser? user) {
         try {
 
-            var user = _applicationContext.Users.FirstOrDefault(u => u.TgId == chatId);
-
             if (user == null) {
-                _applicationContext.Users.Add(new TelegramUser() {
-                    TgId = chatId, UserState = state
-                });
+                return;
+            }
+            
+            var findUser = _applicationContext.Users.FirstOrDefault(u => u.TgId == user.TgId);
+
+            if (findUser == null) {
+                _applicationContext.Users.Add(user);
                 _applicationContext.SaveChanges();
             }
         }

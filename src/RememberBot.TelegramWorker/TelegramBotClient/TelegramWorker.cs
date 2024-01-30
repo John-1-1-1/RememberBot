@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using RememberBot.Kernel;
 using RememberBot.Kernel.PipelineContext.Implementation;
+using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using RememberBot.TelegramWorker.DataBaseContext;
 using RememberBot.TelegramWorker.Services;
@@ -8,6 +9,7 @@ using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace RememberBot.TelegramWorker.TelegramBotClient;
 
@@ -53,9 +55,19 @@ public class TelegramWorker: BackgroundService {
 
             TelegramUser? user = _dataBaseService.GetUser(update.CallbackQuery?.From.Id ?? update.Message?.Chat.Id);
             var pipelineResult = _pipelinesDistributor.Execute(user, pipelineContext);
-                if (pipelineResult.MessageResult.TgId != null && pipelineResult.MessageResult.Text != null) {
-                Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, pipelineResult.MessageResult.Text,
-                    cancellationToken: cancellationToken);
+                
+            if (pipelineResult.MessageResult is { TgId: not null, Text: not null }) {
+                Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, 
+                    pipelineResult.MessageResult.Text,
+                    replyMarkup: pipelineResult.MessageResult.ReplyMarkup,
+                    cancellationToken: cancellationToken); 
+                
+                if (pipelineResult.DataBaseResult?.State == DbState.Add) {
+                    if (pipelineResult.DataBaseResult.User != null) {
+                        pipelineResult.DataBaseResult.User.TgId = user.TgId;
+                        _dataBaseService.AddUser(pipelineResult.DataBaseResult.User);
+                    }
+                }
             }
         }
         catch {

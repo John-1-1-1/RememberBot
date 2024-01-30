@@ -22,8 +22,9 @@ public class StartCommand: PipelineStep {
         else {
             pipelineResult.MessageResult = 
                 StartMessageBuilder.AlreadyRegistered(message.Chat.Id);
-            pipelineResult.DataBaseResult = new DataBaseResult(){User = new TelegramUser() {
-                TgId = message.Chat.Id }};
+            pipelineResult.DataBaseResult = new DataBaseResult()
+                .AddUser(new TelegramUser() {
+                    TgId = message.Chat.Id });
         }
 
         return pipelineResult;
