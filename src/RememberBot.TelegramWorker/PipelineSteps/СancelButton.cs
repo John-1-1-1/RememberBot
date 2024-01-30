@@ -9,7 +9,7 @@ namespace RememberBot.TelegramWorker.PipelineSteps;
 public class CancelButton: PipelineStep {
     public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser? user) {
 
-        if (callbackQuery.Data == "Отмена") {
+        if (callbackQuery.Data == "Cancel") {
             if (user != null) {
                 user.UserState = TelegramState.None;
             }

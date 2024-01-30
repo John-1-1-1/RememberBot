@@ -11,7 +11,7 @@ public class StartCommand: PipelineStep {
 
         PipelineResult pipelineResult = new PipelineResult();
 
-            if (message.Text != "/start") {
+        if (message.Text != "/start") {
             return pipelineResult;
         }
             

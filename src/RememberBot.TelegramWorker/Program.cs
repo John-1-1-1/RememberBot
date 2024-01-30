@@ -32,7 +32,8 @@ builder.Services.AddSingleton(
         .AddUnit(
         new Pipeline()
             .AddUnit(new StartCommand())
-            .AddUnit(new ChangeLocalTimeButton()),
+            .AddUnit(new ChangeLocalTimeButton())
+            .AddUnit(new AddTaskStep()),
         TelegramState.None)
         .AddUnit(
         new Pipeline()

@@ -64,8 +64,13 @@ public class TelegramWorker: BackgroundService {
                 
                 if (pipelineResult.DataBaseResult?.State == DbState.Add) {
                     if (pipelineResult.DataBaseResult.User != null) {
-                        pipelineResult.DataBaseResult.User.TgId = user.TgId;
                         _dataBaseService.AddUser(pipelineResult.DataBaseResult.User);
+                    }
+                }
+                
+                if (pipelineResult.DataBaseResult?.State == DbState.Update) {
+                    if (pipelineResult.DataBaseResult.User != null) {
+                        _dataBaseService.UpdateUser(pipelineResult.DataBaseResult.User);
                     }
                 }
             }

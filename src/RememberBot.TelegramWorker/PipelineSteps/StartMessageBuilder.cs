@@ -11,9 +11,9 @@ public static class StartMessageBuilder {
                 new KeyboardButton[] {
                     new("Список дел"),
                     new("Местное время"),
-                }),
+                }){ResizeKeyboard = true},
             Text = "Вы уже зарегестрированы!",
-            TgId = id
+            TgId = id,
         };
     
     public static MessageResult AlreadyRegistered(long id) => 
@@ -22,11 +22,12 @@ public static class StartMessageBuilder {
             new KeyboardButton[] { 
                 new("Список дел"), 
                 new("Местное время"),
-            }), Text = """
-                      Вы успешно зарегистрировались!
-
-                      Для корректной работы бота, воспользуйтесь кнопкой "Часовой пояс", чтобы бот учитывал ваше время при добавлении и отслеживании задач.
-                      """,
+            }){ResizeKeyboard = true},
+            Text = $"""
+                    Вы успешно зарегистрировались!
+                    
+                    Для корректной работы бота, воспользуйтесь кнопкой "Часовой пояс", чтобы бот учитывал ваше время при добавлении и отслеживании задач.
+                    """,
         TgId = id
 };
 }
