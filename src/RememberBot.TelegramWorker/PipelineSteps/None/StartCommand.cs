@@ -2,9 +2,8 @@ using RememberBot.Kernel.PipelineContext.Implementation.Unit;
 using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps;
+namespace RememberBot.TelegramWorker.PipelineSteps.None;
 
 public class StartCommand: PipelineStep {
     public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {

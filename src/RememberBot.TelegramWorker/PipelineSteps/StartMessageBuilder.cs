@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using RememberBot.Kernel.PipelineContext.Results;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -9,8 +10,9 @@ public static class StartMessageBuilder {
         new MessageResult() { 
             ReplyMarkup = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
-                    new("Список дел"),
+                    new("Список заметок"),
                     new("Местное время"),
+                    new("Добавить заметку")
                 }){ResizeKeyboard = true},
             Text = "Вы уже зарегестрированы!",
             TgId = id,
@@ -19,10 +21,11 @@ public static class StartMessageBuilder {
     public static MessageResult AlreadyRegistered(long id) => 
         new MessageResult() { 
             ReplyMarkup = new ReplyKeyboardMarkup(
-            new KeyboardButton[] { 
-                new("Список дел"), 
-                new("Местное время"),
-            }){ResizeKeyboard = true},
+                new KeyboardButton[] {
+                    new("Список заметок"),
+                    new("Местное время"),
+                    new("Добавить заметку")
+                }){ResizeKeyboard = true},
             Text = $"""
                     Вы успешно зарегистрировались!
                     

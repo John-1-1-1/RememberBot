@@ -5,9 +5,9 @@ using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps;
+namespace RememberBot.TelegramWorker.PipelineSteps.None;
 
-public class ChangeLocalTimeButton: PipelineStep {
+public class ChangeLocalTimeCommand: PipelineStep {
     public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
 
         PipelineResult pipelineResult = new PipelineResult();
@@ -17,21 +17,16 @@ public class ChangeLocalTimeButton: PipelineStep {
         }
 
         if (message.Text == "Местное время") {
-            user.UserState = TelegramState.ChangeLocalTime;
             pipelineResult.MessageResult = new MessageResult() {
-                ReplyMarkup =  new InlineKeyboardMarkup( 
+                ReplyMarkup =  new ReplyKeyboardMarkup( 
                     new [] {
-                        InlineKeyboardButton.
-                            WithCallbackData("Отмена",
-                                "Cancell"),
-                        InlineKeyboardButton.
-                            WithCallbackData("Сменить дату",
-                                "ChangeData")
+                        new KeyboardButton("Главное меню")
                     }
                 ),
-                Text = "Вы действительно хотите сменить дату?",
+                Text = "Введите ваше время!",
                 TgId = message.Chat.Id
             };
+            user.UserState = TelegramState.ChangeLocalTime;
             pipelineResult.DataBaseResult = new DataBaseResult()
                 .AddUser(user);
         }

@@ -1,5 +1,6 @@
 using RememberBot.Kernel.Tables;
 using RememberBot.TelegramWorker.PipelineSteps;
+using RememberBot.TelegramWorker.PipelineSteps.None;
 using Telegram.Bot.Types;
 
 namespace RememberBot.UnitTest;

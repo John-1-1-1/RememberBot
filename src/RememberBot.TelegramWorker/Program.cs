@@ -6,6 +6,9 @@ using RememberBot.Kernel.PipelineContext.Implementation;
 using RememberBot.TelegramWorker;
 using RememberBot.TelegramWorker.DataBaseContext;
 using RememberBot.TelegramWorker.PipelineSteps;
+using RememberBot.TelegramWorker.PipelineSteps.AddTask;
+using RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
+using RememberBot.TelegramWorker.PipelineSteps.None;
 using RememberBot.TelegramWorker.Services;
 using RememberBot.TelegramWorker.TelegramBotClient;
 
@@ -32,13 +35,23 @@ builder.Services.AddSingleton(
         .AddUnit(
         new Pipeline()
             .AddUnit(new StartCommand())
-            .AddUnit(new ChangeLocalTimeButton())
-            .AddUnit(new AddTaskStep()),
+            .AddUnit(new ChangeLocalTimeCommand())
+            .AddUnit(new AddTaskCommand())
+        ,
         TelegramState.None)
         .AddUnit(
         new Pipeline()
-            .AddUnit(new CancelButton()),
+            .AddUnit(new CancelButton())
+            .AddUnit(new ChangeLocalTimeCallback())
+            .AddUnit(new ChangeLocalTimeStep())
+        ,
         TelegramState.ChangeLocalTime)
+        .AddUnit(
+            new Pipeline()
+                .AddUnit(new CancelButton())
+                .AddUnit(new AddTaskStep())
+            ,
+            TelegramState.AddTask)
     );
 
 builder.Services.AddHostedService<TelegramWorker>();

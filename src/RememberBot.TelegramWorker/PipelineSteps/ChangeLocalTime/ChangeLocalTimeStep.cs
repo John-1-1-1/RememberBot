@@ -1,21 +1,18 @@
 using System.Globalization;
+using Hors;
 using RememberBot.Kernel.PipelineContext.Implementation.Unit;
 using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
-using Hors;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps;
+namespace RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
 
-public class AddTaskStep: PipelineStep {
+public class ChangeLocalTimeStep: PipelineStep {
     
     private readonly HorsTextParser _horsTextParser = new();
-    
+
     public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
-        
-        //DateTime.Now.Add(user.LocalTime)
-        
         var parseTime = _horsTextParser.Parse(message.Text, DateTime.Now);
             
         List<DateTime> listDates = parseTime.Dates.Select(d => d.DateTo).ToList();
@@ -26,14 +23,14 @@ public class AddTaskStep: PipelineStep {
         foreach (var date in listDates.Take(5)) {
             _buttons.Add(new InlineKeyboardButton[] {
                 InlineKeyboardButton.WithCallbackData(date.ToString(CultureInfo.InvariantCulture),
-                    "f" + date.ToFileTime())
+                    "c" + date.ToFileTime())
             });
         }
-
+        
         MessageResult messageResult = new MessageResult();
         
         messageResult.ReplyMarkup = new InlineKeyboardMarkup(_buttons);
-        messageResult.Text = parseTime.Text;
+        messageResult.Text = "Выберете ваше время!";
         messageResult.TgId = message.Chat.Id;
         
         return new PipelineResult {MessageResult = messageResult};
