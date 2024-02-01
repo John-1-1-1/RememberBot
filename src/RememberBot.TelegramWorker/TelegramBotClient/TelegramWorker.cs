@@ -57,20 +57,33 @@ public class TelegramWorker: BackgroundService {
             var pipelineResult = _pipelinesDistributor.Execute(user, pipelineContext);
                 
             if (pipelineResult.MessageResult is { TgId: not null, Text: not null }) {
+               
                 Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, 
                     pipelineResult.MessageResult.Text,
                     replyMarkup: pipelineResult.MessageResult.ReplyMarkup,
                     cancellationToken: cancellationToken); 
                 
-                if (pipelineResult.DataBaseResult?.State == DbState.Add) {
+                if (pipelineResult.DataBaseResult?.StateUser == DbState.Add) {
                     if (pipelineResult.DataBaseResult.User != null) {
                         _dataBaseService.AddUser(pipelineResult.DataBaseResult.User);
                     }
                 }
                 
-                if (pipelineResult.DataBaseResult?.State == DbState.Update) {
+                if (pipelineResult.DataBaseResult?.StateUser == DbState.Update) {
                     if (pipelineResult.DataBaseResult.User != null) {
                         _dataBaseService.UpdateUser(pipelineResult.DataBaseResult.User);
+                    }
+                }
+                
+                if (pipelineResult.DataBaseResult?.StateTask == DbState.Add) {
+                    if (pipelineResult.DataBaseResult.Task != null) {
+                        _dataBaseService.AddTasks(pipelineResult.DataBaseResult.Task);
+                    }
+                }
+                
+                if (pipelineResult.DataBaseResult?.StateTask == DbState.Update) {
+                    if (pipelineResult.DataBaseResult.Task != null) {
+                        _dataBaseService.UpdateTask(pipelineResult.DataBaseResult.Task);
                     }
                 }
             }

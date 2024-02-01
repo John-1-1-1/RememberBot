@@ -64,4 +64,23 @@ public class DataBaseService {
             return null;
         }
     }
+    
+    public void AddTasks(TelegramTask tasks) {
+        try { 
+            _applicationContext.Task.Add(tasks); 
+            _applicationContext.SaveChanges();
+        } catch { 
+            _logger.LogError("AddTasks: ApplicationContext incorrect"); 
+        }
+    }
+    
+    public void UpdateTask(TelegramTask task) {
+        try {
+            _applicationContext.Task.Update(task);
+            _applicationContext.SaveChanges();
+        }
+        catch (Exception e) {
+            _logger.LogError("UpdateTask: ApplicationContext incorrect"); 
+        }
+    }
 }

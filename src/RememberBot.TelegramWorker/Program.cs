@@ -49,6 +49,7 @@ builder.Services.AddSingleton(
         .AddUnit(
             new Pipeline()
                 .AddUnit(new CancelButton())
+                .AddUnit(new AddTaskCallback())
                 .AddUnit(new AddTaskStep())
             ,
             TelegramState.AddTask)

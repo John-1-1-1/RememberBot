@@ -16,7 +16,7 @@ public class AddTaskCommand: PipelineStep {
             return pipelineResult;
         }
 
-        if (message.Text == "Добавить задачу") {
+        if (message.Text == "Добавить заметку") {
             MessageResult messageResult = new MessageResult() {
                 ReplyMarkup =  new ReplyKeyboardMarkup( 
                     new [] {

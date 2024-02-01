@@ -26,16 +26,26 @@ public class AddTaskStep: PipelineStep {
         foreach (var date in listDates.Take(5)) {
             _buttons.Add(new InlineKeyboardButton[] {
                 InlineKeyboardButton.WithCallbackData(date.ToString(CultureInfo.InvariantCulture),
-                    "f" + date.ToFileTime())
+                    "t" + date.ToFileTime())
             });
         }
 
+        _buttons.Add(new InlineKeyboardButton[] {
+            InlineKeyboardButton.WithCallbackData("Изменить дату", "ChangeDate"),
+            InlineKeyboardButton.WithCallbackData("Изменить текст", "ChangeText")
+        });
+        
         MessageResult messageResult = new MessageResult();
         
         messageResult.ReplyMarkup = new InlineKeyboardMarkup(_buttons);
         messageResult.Text = parseTime.Text;
         messageResult.TgId = message.Chat.Id;
+
+        DataBaseResult dataBaseResult = new DataBaseResult();
+
+        user.AddedText = messageResult.Text;
+        dataBaseResult.AddUser(user);
         
-        return new PipelineResult {MessageResult = messageResult};
+        return new PipelineResult {MessageResult = messageResult, DataBaseResult = dataBaseResult};
     }
 }
