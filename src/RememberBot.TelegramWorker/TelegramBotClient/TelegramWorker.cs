@@ -55,7 +55,19 @@ public class TelegramWorker: BackgroundService {
 
             TelegramUser? user = _dataBaseService.GetUser(update.CallbackQuery?.From.Id ?? update.Message?.Chat.Id);
             var pipelineResult = _pipelinesDistributor.Execute(user, pipelineContext);
+
+            if (pipelineResult.Task == MessageTask.GetListTask) {
+                var listTasks = _dataBaseService.GetTasksCollection(user.TgId);
+                var listTimes = listTasks
+                    .GroupBy(t => t.DateTime)
+                    .OrderBy(t=> t.First().DateTime);
                 
+                Client.SendTextMessageAsync(
+                    user.TgId, string.Join("\n", listTimes.Select(t => "\ud83d\udccc На "+
+                                                                          t.First().DateTime.Add(user.LocalTime) + " \n" + 
+                                                                          string.Join("", t.Select( u => "\u2705 " + u.Text + "\n")) ))); 
+            }
+            
             if (pipelineResult.MessageResult is { TgId: not null, Text: not null }) {
                
                 Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, 

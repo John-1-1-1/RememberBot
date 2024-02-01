@@ -83,4 +83,13 @@ public class DataBaseService {
             _logger.LogError("UpdateTask: ApplicationContext incorrect"); 
         }
     }
+    
+    public ICollection<TelegramTask> GetTasksCollection(long tgId) {
+        try {
+            return _applicationContext.Task.Where(t => t.TgId == tgId && t.IsActive == true).ToList();
+        } catch {
+            _logger.LogError("GetTasksCollection: ApplicationContext incorrect");
+            return new List<TelegramTask>();
+        }
+    }
 }
