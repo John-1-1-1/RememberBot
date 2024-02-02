@@ -2,7 +2,7 @@ using System.Globalization;
 using RememberBot.Kernel.PipelineContext.Results;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.AddTask;
+namespace RememberBot.TelegramBot.PipelineSteps.AddTask;
 
 public static class AddTaskMessageBuilder {
     public static MessageResult TaskAddedMessage (long id) => 

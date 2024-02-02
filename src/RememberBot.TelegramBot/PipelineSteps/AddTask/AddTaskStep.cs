@@ -6,7 +6,7 @@ using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.AddTask;
+namespace RememberBot.TelegramBot.PipelineSteps.AddTask;
 
 public class AddTaskStep: PipelineStep {
     

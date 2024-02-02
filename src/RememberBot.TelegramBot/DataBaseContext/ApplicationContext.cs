@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RememberBot.Kernel.Tables;
 
-namespace RememberBot.TelegramWorker.DataBaseContext;
+namespace RememberBot.TelegramBot.DataBaseContext;
 
 public sealed class ApplicationContext : DbContext {
     public DbSet<TelegramUser> Users { get; set; } = null!;

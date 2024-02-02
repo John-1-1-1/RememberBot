@@ -6,7 +6,7 @@ using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
+namespace RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 
 public class ChangeLocalTimeStep: PipelineStep {
     

@@ -4,7 +4,7 @@ using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.AddTask;
+namespace RememberBot.TelegramBot.PipelineSteps.AddTask;
 
 public class AddTaskCallback : PipelineStep {
     public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser? user) {

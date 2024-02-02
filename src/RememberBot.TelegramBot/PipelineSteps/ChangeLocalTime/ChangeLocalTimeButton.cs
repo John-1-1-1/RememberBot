@@ -4,7 +4,7 @@ using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
+namespace RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 
 public class ChangeLocalTimeButton : PipelineStep {
     public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {

@@ -5,7 +5,6 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>dotnet-RememberBot.Telegram-6CD15306-0E8A-457F-9F9D-8062D617F291</UserSecretsId>
-        <RootNamespace>RememberBot.TelegramWorker</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

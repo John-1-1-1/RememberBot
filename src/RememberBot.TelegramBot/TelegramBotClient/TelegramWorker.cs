@@ -3,15 +3,15 @@ using RememberBot.Kernel;
 using RememberBot.Kernel.PipelineContext.Implementation;
 using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
-using RememberBot.TelegramWorker.DataBaseContext;
-using RememberBot.TelegramWorker.Services;
+using RememberBot.TelegramBot.Services;
+using RememberBot.TelegramBot.DataBaseContext;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.TelegramBotClient;
+namespace RememberBot.TelegramBot.TelegramBotClient;
 
 public class TelegramWorker: BackgroundService {
     public readonly ITelegramBotClient Client;

@@ -3,7 +3,7 @@ using RememberBot.Kernel.PipelineContext.Implementation;
 using RememberBot.Kernel.PipelineContext.Implementation.Unit;
 using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
-using RememberBot.TelegramWorker.DataBaseContext;
+using RememberBot.TelegramBot.DataBaseContext;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 

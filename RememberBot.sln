@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberBot.TelegramWorker", "src\RememberBot.TelegramWorker\RememberBot.TelegramWorker.csproj", "{5790002A-C5DF-42BC-8840-4ECD18E56954}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberBot.TelegramBot", "src\RememberBot.TelegramBot\RememberBot.TelegramBot.csproj", "{5790002A-C5DF-42BC-8840-4ECD18E56954}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberBot.Kernel", "src\RememberBot.Kernel\RememberBot.Kernel.csproj", "{73D0254D-B3CE-4125-BEEA-60ED571CF09A}"
 EndProject

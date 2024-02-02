@@ -5,7 +5,7 @@ using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps;
+namespace RememberBot.TelegramBot.PipelineSteps;
 
 public class CancelButton: PipelineStep {
 

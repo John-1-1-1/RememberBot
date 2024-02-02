@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using RememberBot.Kernel;
 using RememberBot.Kernel.PipelineContext.Implementation;
-using RememberBot.TelegramWorker;
-using RememberBot.TelegramWorker.DataBaseContext;
-using RememberBot.TelegramWorker.PipelineSteps;
-using RememberBot.TelegramWorker.PipelineSteps.AddTask;
-using RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
-using RememberBot.TelegramWorker.PipelineSteps.None;
-using RememberBot.TelegramWorker.PipelineSteps.None.StartStep;
-using RememberBot.TelegramWorker.Services;
-using RememberBot.TelegramWorker.TelegramBotClient;
+using RememberBot.TelegramBot;
+using RememberBot.TelegramBot.DataBaseContext;
+using RememberBot.TelegramBot.PipelineSteps;
+using RememberBot.TelegramBot.PipelineSteps.AddTask;
+using RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
+using RememberBot.TelegramBot.PipelineSteps.None;
+using RememberBot.TelegramBot.PipelineSteps.None.StartStep;
+using RememberBot.TelegramBot.Services;
+using RememberBot.TelegramBot.TelegramBotClient;
 
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

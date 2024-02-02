@@ -1,7 +1,7 @@
 using RememberBot.Kernel.PipelineContext.Results;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.None.StartStep;
+namespace RememberBot.TelegramBot.PipelineSteps.None.StartStep;
 
 public static class StartMessageBuilder {
     

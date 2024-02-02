@@ -1,8 +1,8 @@
 using RememberBot.Kernel;
 using RememberBot.Kernel.Tables;
-using RememberBot.TelegramWorker.DataBaseContext;
+using RememberBot.TelegramBot.DataBaseContext;
 
-namespace RememberBot.TelegramWorker.Services;
+namespace RememberBot.TelegramBot.Services;
 
 public class DataBaseService {
  private readonly ApplicationContext _applicationContext;

@@ -24,7 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RememberBot.Kernel\RememberBot.Kernel.csproj" />
-      <ProjectReference Include="..\RememberBot.TelegramWorker\RememberBot.TelegramWorker.csproj" />
+      <ProjectReference Include="..\RememberBot.TelegramBot\RememberBot.TelegramBot.csproj" />
     </ItemGroup>
 
 </Project>

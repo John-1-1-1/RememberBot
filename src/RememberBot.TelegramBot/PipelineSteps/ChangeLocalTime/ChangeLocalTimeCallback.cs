@@ -5,7 +5,7 @@ using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
+namespace RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 
 public class ChangeLocalTimeCallback : PipelineStep {
     public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser? user) {
