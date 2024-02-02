@@ -16,16 +16,7 @@ public class ChangeLocalTimeCallback : PipelineStep {
                 user.LocalTime = DateTime.FromFileTime(long.Parse(message)).ToUniversalTime() - DateTime.UtcNow;
                 return new PipelineResult() {
                     DataBaseResult = new DataBaseResult().AddUser(user),
-                    MessageResult = new MessageResult {
-                        Text = "Ваше время: " + user.LocalTime,
-                        TgId = user.TgId,
-                        ReplyMarkup = new ReplyKeyboardMarkup(
-                            new KeyboardButton[] {
-                                new("Список заметок"),
-                                new("Местное время"),
-                                new("Добавить заметку")
-                            }){ResizeKeyboard = true}
-                    }
+                    MessageResult = ChangeLocalTimeMessageBuilder.ShowAddedTime(user)
                 };
             }
         }

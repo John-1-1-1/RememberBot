@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using RememberBot.Kernel.PipelineContext.Results;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramWorker.PipelineSteps;
+namespace RememberBot.TelegramWorker.PipelineSteps.None.StartStep;
 
 public static class StartMessageBuilder {
     

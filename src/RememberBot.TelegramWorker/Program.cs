@@ -9,6 +9,7 @@ using RememberBot.TelegramWorker.PipelineSteps;
 using RememberBot.TelegramWorker.PipelineSteps.AddTask;
 using RememberBot.TelegramWorker.PipelineSteps.ChangeLocalTime;
 using RememberBot.TelegramWorker.PipelineSteps.None;
+using RememberBot.TelegramWorker.PipelineSteps.None.StartStep;
 using RememberBot.TelegramWorker.Services;
 using RememberBot.TelegramWorker.TelegramBotClient;
 
@@ -31,6 +32,7 @@ builder.Services.AddScoped<ApplicationContext>(db
 builder.Configuration.AddJsonFile("token.json");
 builder.Services.AddSingleton<DataBaseService>();
 builder.Services.AddSingleton(
+   
     new PipelinesDistributor()
         .AddUnit(
         new Pipeline()
@@ -40,6 +42,7 @@ builder.Services.AddSingleton(
             .AddUnit(new AddTaskCommand())
         ,
         TelegramState.None)
+        
         .AddUnit(
         new Pipeline()
             .AddUnit(new CancelButton())
@@ -47,6 +50,7 @@ builder.Services.AddSingleton(
             .AddUnit(new ChangeLocalTimeStep())
         ,
         TelegramState.ChangeLocalTime)
+        
         .AddUnit(
             new Pipeline()
                 .AddUnit(new CancelButton())

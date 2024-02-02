@@ -47,14 +47,16 @@ public class TelegramWorker: BackgroundService {
     private Task UpdateHandler(ITelegramBotClient botClient,
         Update update, CancellationToken cancellationToken) {
         try {
-            PipelineContext pipelineContext = new PipelineContext() {
-                Message = update.Message,
-                CallbackQuery = update.CallbackQuery,
-                Type = update.Type 
-            };
-
+            
             TelegramUser? user = _dataBaseService.GetUser(update.CallbackQuery?.From.Id ?? update.Message?.Chat.Id);
-            var pipelineResult = _pipelinesDistributor.Execute(user, pipelineContext);
+            
+            var pipelineResult = _pipelinesDistributor.Execute(user, 
+                new PipelineContext 
+                { 
+                    Message = update.Message,
+                    CallbackQuery = update.CallbackQuery,
+                    Type = update.Type 
+                });
 
             if (pipelineResult.Task == MessageTask.GetListTask) {
                 var listTasks = _dataBaseService.GetTasksCollection(user.TgId);

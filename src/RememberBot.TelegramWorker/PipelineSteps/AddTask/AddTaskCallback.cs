@@ -9,6 +9,15 @@ namespace RememberBot.TelegramWorker.PipelineSteps.AddTask;
 public class AddTaskCallback : PipelineStep {
     public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser? user) {
 
+        if (user == null) {
+            return new PipelineResult();
+        }
+        
+        if (user.AddedText == String.Empty) {
+            MessageResult messageResult = AddTaskMessageBuilder.NotFoundTextMessage(user.TgId);
+            return new PipelineResult { MessageResult = messageResult };
+        }
+        
         if (callbackQuery.Data != null && callbackQuery.Data[0] == 't') {
             
             DataBaseResult dataBaseResult = new DataBaseResult();
@@ -18,10 +27,7 @@ public class AddTaskCallback : PipelineStep {
                 Text = user.AddedText,
             });
 
-            MessageResult messageResult = new MessageResult {
-                Text = "Задача добавлена!",
-                TgId = user.TgId
-            };
+            MessageResult messageResult = AddTaskMessageBuilder.TaskAddedMessage(user.TgId);
             return new PipelineResult() { DataBaseResult = dataBaseResult, MessageResult = messageResult};
         }
         return new PipelineResult();

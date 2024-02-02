@@ -3,7 +3,7 @@ using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using Telegram.Bot.Types;
 
-namespace RememberBot.TelegramWorker.PipelineSteps.None;
+namespace RememberBot.TelegramWorker.PipelineSteps.None.StartStep;
 
 public class StartCommand: PipelineStep {
     public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
@@ -21,6 +21,7 @@ public class StartCommand: PipelineStep {
         else {
             pipelineResult.MessageResult = 
                 StartMessageBuilder.AlreadyRegistered(message.Chat.Id);
+            
             pipelineResult.DataBaseResult = new DataBaseResult()
                 .AddUser(new TelegramUser() {
                     TgId = message.Chat.Id });
