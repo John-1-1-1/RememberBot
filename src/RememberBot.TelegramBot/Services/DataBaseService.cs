@@ -92,4 +92,16 @@ public class DataBaseService {
             return new List<TelegramTask>();
         }
     }
+    
+    public ICollection<TelegramTask> GetUpcomingTasks(DateTime dateTime, int deltaMin) {
+        try {
+            return _applicationContext.Task.Where(t=> (t.DateTime > dateTime) 
+                                                              && (dateTime.AddMinutes(deltaMin) > t.DateTime) 
+                                                              && t.IsActive).ToList();
+        }
+        catch {
+            _logger.LogError("GetUpcomingTasks: ApplicationContext incorrect"); 
+            return new List<TelegramTask>();
+        }
+    }
 }

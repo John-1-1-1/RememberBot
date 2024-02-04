@@ -8,7 +8,7 @@ namespace RememberBot.TelegramBot.PipelineSteps.None;
 public class ListTasksCommand: PipelineStep {
     public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
 
-        if (message.Text == "Список задач") {
+        if (message.Text == "Список заметок") {
             return new PipelineResult() { Task = MessageTask.GetListTask };
         }
 

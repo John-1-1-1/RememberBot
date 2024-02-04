@@ -1,47 +1,30 @@
-using System.Security.Cryptography;
-using RememberBot.Kernel;
 using RememberBot.Kernel.PipelineContext.Implementation;
 using RememberBot.Kernel.PipelineContext.Results;
 using RememberBot.Kernel.Tables;
 using RememberBot.TelegramBot.Services;
-using RememberBot.TelegramBot.DataBaseContext;
 using Telegram.Bot;
-using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 
-namespace RememberBot.TelegramBot.TelegramBotClient;
+namespace RememberBot.TelegramBot.Workers;
 
 public class TelegramWorker: BackgroundService {
-    public readonly ITelegramBotClient Client;
-    private readonly ReceiverOptions _receiverOptions;
-    private PipelinesDistributor _pipelinesDistributor;
-    private DataBaseService _dataBaseService;
+
     private ILogger<TelegramWorker> _logger;
+    private DataBaseService _dataBaseService;
+    private PipelinesDistributor _pipelinesDistributor;
+    private TelegramBotService _telegramBotService;
     
     public TelegramWorker(ILogger<TelegramWorker> logger,
-        IServiceProvider serviceProvider, IConfiguration configuration) {
-
+        IServiceProvider serviceProvider) {
         _logger = logger;
         _pipelinesDistributor = serviceProvider.GetService<PipelinesDistributor>() ?? 
                                 throw new Exception("PipelinesDistributor is null");
+
         _dataBaseService = serviceProvider.GetService<DataBaseService>() ?? 
                            throw new Exception("DataBaseService is null");
-        
-        var token = configuration.GetValue<String>("TelegramToken");
 
-        if (token == null) {
-            logger.LogError("TelegramToken is null");
-            throw new ArgumentNullException(token);
-        }
-        Client = new Telegram.Bot.TelegramBotClient(token);
-        _receiverOptions = new ReceiverOptions() {
-            AllowedUpdates = new[] {
-                UpdateType.Message,
-                UpdateType.CallbackQuery 
-            }
-        };
+        _telegramBotService = serviceProvider.GetService<TelegramBotService>() ??
+                              throw new Exception("TelegramBotService is null");
     }
     
     private Task UpdateHandler(ITelegramBotClient botClient,
@@ -64,7 +47,7 @@ public class TelegramWorker: BackgroundService {
                     .GroupBy(t => t.DateTime)
                     .OrderBy(t=> t.First().DateTime);
                 
-                Client.SendTextMessageAsync(
+                _telegramBotService.Client.SendTextMessageAsync(
                     user.TgId, string.Join("\n", listTimes.Select(t => "\ud83d\udccc На "+
                                                                           t.First().DateTime.Add(user.LocalTime) + " \n" + 
                                                                           string.Join("", t.Select( u => "\u2705 " + u.Text + "\n")) ))); 
@@ -72,7 +55,7 @@ public class TelegramWorker: BackgroundService {
             
             if (pipelineResult.MessageResult is { TgId: not null, Text: not null }) {
                
-                Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, 
+                _telegramBotService.Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, 
                     pipelineResult.MessageResult.Text,
                     replyMarkup: pipelineResult.MessageResult.ReplyMarkup,
                     cancellationToken: cancellationToken); 
@@ -115,8 +98,8 @@ public class TelegramWorker: BackgroundService {
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken) {
         _logger.LogInformation("TelegramWorker running at: {time}", DateTimeOffset.Now);
-        Client.StartReceiving(UpdateHandler, ErrorHandler,
-            _receiverOptions, stoppingToken);
+        _telegramBotService.Client.StartReceiving(UpdateHandler, ErrorHandler,
+            _telegramBotService.ReceiverOptions, stoppingToken);
         return Task.CompletedTask;
     }
 }

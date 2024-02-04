@@ -11,7 +11,7 @@ using RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 using RememberBot.TelegramBot.PipelineSteps.None;
 using RememberBot.TelegramBot.PipelineSteps.None.StartStep;
 using RememberBot.TelegramBot.Services;
-using RememberBot.TelegramBot.TelegramBotClient;
+using RememberBot.TelegramBot.Workers;
 
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -31,6 +31,7 @@ builder.Services.AddScoped<ApplicationContext>(db
 
 builder.Configuration.AddJsonFile("token.json");
 builder.Services.AddSingleton<DataBaseService>();
+builder.Services.AddSingleton<TelegramBotService>();
 builder.Services.AddSingleton(
    
     new PipelinesDistributor()
@@ -61,6 +62,7 @@ builder.Services.AddSingleton(
     );
 
 builder.Services.AddHostedService<TelegramWorker>();
+builder.Services.AddHostedService<CheckerUpcomingTasksWorker>();
 
 var host = builder.Build();
 host.Run();

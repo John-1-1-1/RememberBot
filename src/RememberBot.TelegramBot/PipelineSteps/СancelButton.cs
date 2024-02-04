@@ -13,7 +13,7 @@ public class CancelButton: PipelineStep {
         if (message.Text == "Главное меню" && user != null) {
             user.UserState = TelegramState.None;
             return new PipelineResult() {
-                DataBaseResult = new DataBaseResult().AddUser(user),
+                DataBaseResult = new DataBaseResult().UpdateUser(user),
                 MessageResult = new MessageResult {
                     TgId = user.TgId,
                     Text = "Вы перешли в главное меню!",

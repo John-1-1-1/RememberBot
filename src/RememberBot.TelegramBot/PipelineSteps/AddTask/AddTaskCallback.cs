@@ -23,7 +23,9 @@ public class AddTaskCallback : PipelineStep {
             DataBaseResult dataBaseResult = new DataBaseResult();
             dataBaseResult.AddTask(new TelegramTask() {
                 TgId = callbackQuery.From.Id,
-                DateTime = DateTime.FromFileTime(long.Parse(callbackQuery.Data.Remove(0, 1))),
+                DateTime = DateTime.FromFileTime(
+                        long.Parse(callbackQuery.Data.Remove(0, 1)))
+                    .Add(user.LocalTime),
                 Text = user.AddedText,
             });
 

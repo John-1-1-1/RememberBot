@@ -13,7 +13,7 @@ public class ChangeLocalTimeCallback : PipelineStep {
             if (user != null) {
                 string message = callbackQuery.Data.Remove(0, 1);
                 user.UserState = TelegramState.None; 
-                user.LocalTime = DateTime.FromFileTime(long.Parse(message)).ToUniversalTime() - DateTime.UtcNow;
+                user.LocalTime =  DateTime.UtcNow - DateTime.FromFileTime(long.Parse(message)).ToUniversalTime();
                 return new PipelineResult() {
                     DataBaseResult = new DataBaseResult().AddUser(user),
                     MessageResult = ChangeLocalTimeMessageBuilder.ShowAddedTime(user)
