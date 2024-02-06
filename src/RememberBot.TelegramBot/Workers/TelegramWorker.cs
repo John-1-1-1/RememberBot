@@ -7,26 +7,19 @@ using Telegram.Bot.Types;
 
 namespace RememberBot.TelegramBot.Workers;
 
-public class TelegramWorker: BackgroundService {
-
-    private ILogger<TelegramWorker> _logger;
-    private DataBaseService _dataBaseService;
-    private PipelinesDistributor _pipelinesDistributor;
-    private TelegramBotService _telegramBotService;
+public class TelegramWorker(ILogger<TelegramWorker> logger, 
+    IServiceProvider serviceProvider) : BackgroundService {
     
-    public TelegramWorker(ILogger<TelegramWorker> logger,
-        IServiceProvider serviceProvider) {
-        _logger = logger;
-        _pipelinesDistributor = serviceProvider.GetService<PipelinesDistributor>() ?? 
-                                throw new Exception("PipelinesDistributor is null");
+    private readonly DataBaseService _dataBaseService =
+        serviceProvider.GetService<DataBaseService>() ?? 
+        throw new Exception("DataBaseService is null");
+    private readonly PipelinesDistributor _pipelinesDistributor = 
+        serviceProvider.GetService<PipelinesDistributor>() ?? 
+        throw new Exception("PipelinesDistributor is null");
+    private readonly TelegramBotService _telegramBotService = 
+        serviceProvider.GetService<TelegramBotService>() ?? 
+        throw new Exception("TelegramBotService is null");
 
-        _dataBaseService = serviceProvider.GetService<DataBaseService>() ?? 
-                           throw new Exception("DataBaseService is null");
-
-        _telegramBotService = serviceProvider.GetService<TelegramBotService>() ??
-                              throw new Exception("TelegramBotService is null");
-    }
-    
     private Task UpdateHandler(ITelegramBotClient botClient,
         Update update, CancellationToken cancellationToken) {
         try {
@@ -97,7 +90,7 @@ public class TelegramWorker: BackgroundService {
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken) {
-        _logger.LogInformation("TelegramWorker running at: {time}", DateTimeOffset.Now);
+        logger.LogInformation("TelegramWorker running at: {time}", DateTimeOffset.Now);
         _telegramBotService.Client.StartReceiving(UpdateHandler, ErrorHandler,
             _telegramBotService.ReceiverOptions, stoppingToken);
         return Task.CompletedTask;

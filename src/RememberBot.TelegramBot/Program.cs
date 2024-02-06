@@ -1,9 +1,6 @@
-using System.IO.Pipes;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using RememberBot.Kernel;
 using RememberBot.Kernel.PipelineContext.Implementation;
-using RememberBot.TelegramBot;
 using RememberBot.TelegramBot.DataBaseContext;
 using RememberBot.TelegramBot.PipelineSteps;
 using RememberBot.TelegramBot.PipelineSteps.AddTask;

@@ -24,7 +24,7 @@ public class AddTaskCommand: PipelineStep {
                             new("Главное меню"), 
                         }
                     }
-                ),
+                ){ ResizeKeyboard = true },
                 Text = "Для добавления напоминания просто напишите боту в формате \"в 11 часов Работа\" ",
                 TgId = message.Chat.Id
             };

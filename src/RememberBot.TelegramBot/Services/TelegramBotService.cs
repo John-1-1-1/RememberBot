@@ -1,4 +1,3 @@
-using RememberBot.Kernel.Tables;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
@@ -26,9 +25,5 @@ public class TelegramBotService {
                 UpdateType.CallbackQuery 
             }
         };
-    }
-    
-    public void SendUpcomingTask(TelegramTask task) {
-        Client.SendTextMessageAsync(task.TgId, task.Text);
     }
 }

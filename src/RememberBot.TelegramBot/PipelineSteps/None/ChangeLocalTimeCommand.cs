@@ -22,7 +22,7 @@ public class ChangeLocalTimeCommand: PipelineStep {
                     new [] {
                         new KeyboardButton("Главное меню")
                     }
-                ),
+                ){ ResizeKeyboard = true },
                 Text = "Введите ваше время!",
                 TgId = message.Chat.Id
             };

@@ -22,7 +22,7 @@ public class ChangeLocalTimeStep: PipelineStep {
         
         foreach (var date in listDates.Take(5)) {
             _buttons.Add(new InlineKeyboardButton[] {
-                InlineKeyboardButton.WithCallbackData(date.ToString(CultureInfo.InvariantCulture),
+                InlineKeyboardButton.WithCallbackData(date.ToString(CultureInfo.CurrentCulture),
                     "c" + date.ToFileTime())
             });
         }

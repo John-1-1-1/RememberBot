@@ -1,4 +1,8 @@
-namespace RememberBot.TelegramBot.Services;
+using System.Globalization;
+using RememberBot.TelegramBot.Services;
+using Telegram.Bot;
+
+namespace RememberBot.TelegramBot.Workers;
 
 public class CheckerUpcomingTasksWorker(ILogger<CheckerUpcomingTasksWorker> logger,
     IServiceProvider serviceProvide) : BackgroundService {  
@@ -15,7 +19,10 @@ public class CheckerUpcomingTasksWorker(ILogger<CheckerUpcomingTasksWorker> logg
         while (!stoppingToken.IsCancellationRequested) {
             var listTasks = dataBaseService.GetUpcomingTasks(DateTime.Now, 15);
             foreach (var task in listTasks) {
-                telegramBotClient.SendUpcomingTask(task);
+                telegramBotClient.Client.SendTextMessageAsync(
+                    task.TgId, $"Напоминание от {task.DateTime.ToString(CultureInfo.CurrentCulture)} \n" +
+                               $"\n" +
+                               $"{task.Text}");
                 task.IsActive = false;
                 dataBaseService.UpdateTask(task);
             }

@@ -1,4 +1,3 @@
-using RememberBot.Kernel;
 using RememberBot.Kernel.Tables;
 using RememberBot.TelegramBot.DataBaseContext;
 
