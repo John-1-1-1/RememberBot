@@ -19,10 +19,16 @@ public class CheckerUpcomingTasksWorker(ILogger<CheckerUpcomingTasksWorker> logg
         while (!stoppingToken.IsCancellationRequested) {
             var listTasks = dataBaseService.GetUpcomingTasks(DateTime.Now, 15);
             foreach (var task in listTasks) {
+                var user = dataBaseService.GetUser(task.TgId);
+
+                if (user == null)
+                    continue;
+                
                 telegramBotClient.Client.SendTextMessageAsync(
-                    task.TgId, $"Напоминание от {task.DateTime.ToString(CultureInfo.CurrentCulture)} \n" +
-                               $"\n" +
-                               $"{task.Text}");
+                    task.TgId,
+                    $"Напоминание от {task.DateTime.Add(-user.LocalTime).ToString(CultureInfo.CurrentCulture)} \n" +
+                    $"\n" +
+                    $"{task.Text}");
                 task.IsActive = false;
                 dataBaseService.UpdateTask(task);
             }

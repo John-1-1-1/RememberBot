@@ -20,7 +20,7 @@ public static class AddTaskMessageBuilder {
     public static MessageResult TaskListMessage(List<DateTime> listDates, string message, long id) {
         
         var buttons = listDates.Take(5).Select(date =>
-            new List<InlineKeyboardButton> {InlineKeyboardButton.WithCallbackData(date.ToString(CultureInfo.InvariantCulture),
+            new List<InlineKeyboardButton> {InlineKeyboardButton.WithCallbackData(date.ToString(CultureInfo.DefaultThreadCurrentCulture),
             "t" + date.ToFileTime())} ).ToList();
 
         buttons.Add(new List<InlineKeyboardButton> {

@@ -34,16 +34,23 @@ public class TelegramWorker(ILogger<TelegramWorker> logger,
                     Type = update.Type 
                 });
 
-            if (pipelineResult.Task == MessageTask.GetListTask) {
-                var listTasks = _dataBaseService.GetTasksCollection(user.TgId);
-                var listTimes = listTasks
-                    .GroupBy(t => t.DateTime)
-                    .OrderBy(t=> t.First().DateTime);
+            foreach (var messageTask in pipelineResult.Task) {
+                if (messageTask == MessageTask.GetListTask) {
+                    var listTasks = _dataBaseService.GetTasksCollection(user.TgId);
+                    var listTimes = listTasks
+                        .GroupBy(t => t.DateTime)
+                        .OrderBy(t=> t.First().DateTime);
                 
-                _telegramBotService.Client.SendTextMessageAsync(
-                    user.TgId, string.Join("\n", listTimes.Select(t => "\ud83d\udccc На "+
-                                                                          t.First().DateTime.Add(user.LocalTime) + " \n" + 
-                                                                          string.Join("", t.Select( u => "\u2705 " + u.Text + "\n")) ))); 
+                    _telegramBotService.Client.SendTextMessageAsync(
+                        user.TgId, string.Join("\n", listTimes.Select(t => "\ud83d\udccc На "+
+                                                                           t.First().DateTime + " \n" + 
+                                                                           string.Join("", t.Select( u => "\u2705 " + u.Text + "\n")) ))); 
+                }
+            }
+            
+            if (pipelineResult.CallbackResult != null) {
+                _telegramBotService.Client.AnswerCallbackQueryAsync(
+                    pipelineResult.CallbackResult.CallbackQueryId, null);
             }
             
             if (pipelineResult.MessageResult is { TgId: not null, Text: not null }) {
