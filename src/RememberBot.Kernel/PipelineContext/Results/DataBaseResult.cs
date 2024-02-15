@@ -41,7 +41,3 @@ public class DataBaseResult {
     public TelegramUser? User => _user;
 }
 
-public enum DbState {
-    Add,
-    Update
-}

@@ -8,13 +8,9 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace RememberBot.TelegramBot.PipelineSteps.None;
 
 public class ChangeLocalTimeCommand: PipelineStep {
-    public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
+    public override PipelineResult UpdateMessage(Message message, TelegramUser user) {
 
         PipelineResult pipelineResult = new PipelineResult();
-        
-        if (user == null) {
-            return pipelineResult;
-        }
 
         if (message.Text == "Местное время") {
             pipelineResult.MessageResult = new MessageResult() {

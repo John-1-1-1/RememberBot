@@ -8,14 +8,10 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace RememberBot.TelegramBot.PipelineSteps.None;
 
 public class AddTaskCommand: PipelineStep {
-    public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
+    public override PipelineResult UpdateMessage(Message message, TelegramUser user) {
         
         PipelineResult pipelineResult = new PipelineResult();
         
-        if (user == null) {
-            return pipelineResult;
-        }
-
         if (message.Text == "Добавить заметку") {
             MessageResult messageResult = new MessageResult() {
                 ReplyMarkup =  new ReplyKeyboardMarkup( 

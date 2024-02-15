@@ -18,12 +18,7 @@ public class Pipeline {
         PipelineResult result = new PipelineResult();
         
         foreach (var unit in _pipelineUnits) {
-            if (pipelineContext.Type == UpdateType.Message && pipelineContext.Message != null) {
-                result = unit.UpdateMessage(pipelineContext.Message, user);
-            }
-            if (pipelineContext.Type == UpdateType.CallbackQuery && pipelineContext.CallbackQuery != null) {
-                result = unit.UpdateCallbackQuery(pipelineContext.CallbackQuery, user);
-            }
+            result = unit.Execute(pipelineContext, user);
             if (result.MessageResult?.TgId != null || result.Task.Count != 0) {
                 break;
             }

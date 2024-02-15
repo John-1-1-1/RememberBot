@@ -6,11 +6,7 @@ using Telegram.Bot.Types;
 namespace RememberBot.TelegramBot.PipelineSteps.AddTask;
 
 public class AddTaskCallback : PipelineStep {
-    public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser? user) {
-
-        if (user == null) {
-            return new PipelineResult();
-        }
+    public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser user) {
         
         if (user.AddedText == String.Empty) {
             MessageResult messageResult = AddTaskMessageBuilder.NotFoundTextMessage(user.TgId);

@@ -7,17 +7,15 @@ using Telegram.Bot.Types;
 namespace RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 
 public class ChangeLocalTimeCallback : PipelineStep {
-    public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser? user) {
+    public override PipelineResult UpdateCallbackQuery(CallbackQuery callbackQuery, TelegramUser user) {
         if (callbackQuery.Data != null && callbackQuery.Data[0] == 'c') {
-            if (user != null) {
-                string message = callbackQuery.Data.Remove(0, 1);
-                user.UserState = TelegramState.None; 
-                user.LocalTime =  DateTime.UtcNow - DateTime.FromFileTime(long.Parse(message)).ToUniversalTime();
-                return new PipelineResult() {
-                    DataBaseResult = new DataBaseResult().AddUser(user),
-                    MessageResult = ChangeLocalTimeMessageBuilder.ShowAddedTime(user)
-                };
-            }
+            string message = callbackQuery.Data.Remove(0, 1);
+            user.UserState = TelegramState.None; 
+            user.LocalTime =  DateTime.UtcNow - DateTime.FromFileTime(long.Parse(message)).ToUniversalTime();
+            return new PipelineResult() {
+                DataBaseResult = new DataBaseResult().AddUser(user),
+                MessageResult = ChangeLocalTimeMessageBuilder.ShowAddedTime(user)
+            };
         }
         return new PipelineResult();
     }

@@ -10,11 +10,7 @@ public class AddTaskStep: PipelineStep {
     
     private readonly HorsTextParser _horsTextParser = new();
     
-    public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
-
-        if (user == null) {
-            return new PipelineResult();
-        }
+    public override PipelineResult UpdateMessage(Message message, TelegramUser user) {
         
         var parseTime = _horsTextParser.Parse(message.Text, DateTime.Now);
         

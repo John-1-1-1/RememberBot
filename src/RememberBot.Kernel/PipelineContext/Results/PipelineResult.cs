@@ -10,7 +10,5 @@ public class PipelineResult {
 }
 
 public enum MessageTask {
-    None,
-    GetListTask,
-    SendCallBack
+    GetListTask
 }

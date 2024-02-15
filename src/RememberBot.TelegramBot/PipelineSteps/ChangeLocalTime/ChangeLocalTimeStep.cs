@@ -12,7 +12,7 @@ public class ChangeLocalTimeStep: PipelineStep {
     
     private readonly HorsTextParser _horsTextParser = new();
 
-    public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
+    public override PipelineResult UpdateMessage(Message message, TelegramUser user) {
         var parseTime = _horsTextParser.Parse(message.Text, DateTime.Now);
             
         List<DateTime> listDates = parseTime.Dates.Select(d => d.DateTo).ToList();
