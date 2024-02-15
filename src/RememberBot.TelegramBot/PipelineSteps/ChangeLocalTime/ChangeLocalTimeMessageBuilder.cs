@@ -8,7 +8,7 @@ public static class ChangeLocalTimeMessageBuilder {
 
     public static MessageResult ShowAddedTime(TelegramUser user) =>
         new MessageResult {
-            Text = "Ваше время: " + user.LocalTime,
+            Text = "Ваше время: " + (DateTime.Now - user.LocalTime),
             TgId = user.TgId,
             ReplyMarkup = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {

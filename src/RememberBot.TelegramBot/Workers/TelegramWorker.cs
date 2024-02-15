@@ -43,7 +43,7 @@ public class TelegramWorker(ILogger<TelegramWorker> logger,
                 
                     _telegramBotService.Client.SendTextMessageAsync(
                         user.TgId, string.Join("\n", listTimes.Select(t => "\ud83d\udccc На "+
-                                                                           t.First().DateTime + " \n" + 
+                                                                           t.First().DateTime.Add(-user.LocalTime) + " \n" + 
                                                                            string.Join("", t.Select( u => "\u2705 " + u.Text + "\n")) ))); 
                 }
             }
@@ -58,28 +58,22 @@ public class TelegramWorker(ILogger<TelegramWorker> logger,
                 _telegramBotService.Client.SendTextMessageAsync(pipelineResult.MessageResult.TgId, 
                     pipelineResult.MessageResult.Text,
                     replyMarkup: pipelineResult.MessageResult.ReplyMarkup,
-                    cancellationToken: cancellationToken); 
-                
-                if (pipelineResult.DataBaseResult?.StateUser == DbState.Add) {
-                    if (pipelineResult.DataBaseResult.User != null) {
+                    cancellationToken: cancellationToken);
+
+                if (pipelineResult.DataBaseResult?.User != null) {
+                    if (pipelineResult.DataBaseResult?.StateUser == DbState.Add) {
                         _dataBaseService.AddUser(pipelineResult.DataBaseResult.User);
                     }
-                }
-                
-                if (pipelineResult.DataBaseResult?.StateUser == DbState.Update) {
-                    if (pipelineResult.DataBaseResult.User != null) {
+                    if (pipelineResult.DataBaseResult?.StateUser == DbState.Update) {
                         _dataBaseService.UpdateUser(pipelineResult.DataBaseResult.User);
                     }
                 }
-                
-                if (pipelineResult.DataBaseResult?.StateTask == DbState.Add) {
-                    if (pipelineResult.DataBaseResult.Task != null) {
+
+                if (pipelineResult.DataBaseResult?.Task != null) {
+                    if (pipelineResult.DataBaseResult?.StateTask == DbState.Add) {
                         _dataBaseService.AddTasks(pipelineResult.DataBaseResult.Task);
                     }
-                }
-                
-                if (pipelineResult.DataBaseResult?.StateTask == DbState.Update) {
-                    if (pipelineResult.DataBaseResult.Task != null) {
+                    if (pipelineResult.DataBaseResult?.StateTask == DbState.Update) {
                         _dataBaseService.UpdateTask(pipelineResult.DataBaseResult.Task);
                     }
                 }

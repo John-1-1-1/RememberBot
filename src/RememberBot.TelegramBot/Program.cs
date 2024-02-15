@@ -33,8 +33,12 @@ builder.Services.AddSingleton(
    
     new PipelinesDistributor()
         .AddUnit(
+            new Pipeline()
+                .AddUnit(new StartCommand()),
+            TelegramState.All
+            )
+        .AddUnit(
         new Pipeline()
-            .AddUnit(new StartCommand())
             .AddUnit(new ListTasksCommand())
             .AddUnit(new ChangeLocalTimeCommand())
             .AddUnit(new AddTaskCommand())

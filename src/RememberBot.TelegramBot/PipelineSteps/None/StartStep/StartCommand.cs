@@ -25,7 +25,7 @@ public class StartCommand: PipelineStep {
         return pipelineResult;
     }
 
-    public override PipelineResult UpdateMessage(Message message, TelegramUser? user) {
+    public override PipelineResult UpdateMessage(Message message, TelegramUser user) {
 
         PipelineResult pipelineResult = new PipelineResult();
 
