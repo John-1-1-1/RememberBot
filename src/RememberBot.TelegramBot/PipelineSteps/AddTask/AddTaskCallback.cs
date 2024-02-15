@@ -26,7 +26,7 @@ public class AddTaskCallback : PipelineStep {
 
             CallbackResult callbackResult = new CallbackResult() { CallbackQueryId = callbackQuery.Id };
             MessageResult messageResult = AddTaskMessageBuilder.TaskAddedMessage(user.TgId);
-            return new PipelineResult() { DataBaseResult = dataBaseResult, MessageResult = messageResult, CallbackResult = callbackResult};
+            return new PipelineResult() { DataBaseResult = dataBaseResult, MessageResult = messageResult};
         }
         
         return new PipelineResult();

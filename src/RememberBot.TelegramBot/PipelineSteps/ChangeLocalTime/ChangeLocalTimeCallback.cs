@@ -14,8 +14,7 @@ public class ChangeLocalTimeCallback : PipelineStep {
             user.LocalTime =  DateTime.UtcNow - DateTime.FromFileTime(long.Parse(message)).ToUniversalTime();
             return new PipelineResult() {
                 DataBaseResult = new DataBaseResult().AddUser(user),
-                MessageResult = ChangeLocalTimeMessageBuilder.ShowAddedTime(user),
-                CallbackResult = new CallbackResult() { CallbackQueryId = callbackQuery.Id }
+                MessageResult = ChangeLocalTimeMessageBuilder.ShowAddedTime(user)
             };
         }
         return new PipelineResult();

@@ -5,6 +5,7 @@ using RememberBot.TelegramBot.DataBaseContext;
 using RememberBot.TelegramBot.PipelineSteps;
 using RememberBot.TelegramBot.PipelineSteps.AddTask;
 using RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
+using RememberBot.TelegramBot.PipelineSteps.ChangeMessage;
 using RememberBot.TelegramBot.PipelineSteps.None;
 using RememberBot.TelegramBot.PipelineSteps.None.StartStep;
 using RememberBot.TelegramBot.Services;
@@ -34,32 +35,34 @@ builder.Services.AddSingleton(
     new PipelinesDistributor()
         .AddUnit(
             new Pipeline()
-                .AddUnit(new StartCommand()),
+                .AddUnit(new StartCommand()), 
             TelegramState.All
             )
         .AddUnit(
-        new Pipeline()
-            .AddUnit(new ListTasksCommand())
-            .AddUnit(new ChangeLocalTimeCommand())
-            .AddUnit(new AddTaskCommand())
-        ,
-        TelegramState.None)
-        
-        .AddUnit(
-        new Pipeline()
-            .AddUnit(new CancelButton())
-            .AddUnit(new ChangeLocalTimeCallback())
-            .AddUnit(new ChangeLocalTimeStep())
-        ,
-        TelegramState.ChangeLocalTime)
+            new Pipeline()
+                .AddUnit(new ListTasksCommand())
+                .AddUnit(new ChangeLocalTimeCommand())
+                .AddUnit(new AddTaskCommand()),
+            TelegramState.None)
         
         .AddUnit(
             new Pipeline()
                 .AddUnit(new CancelButton())
+                .AddUnit(new ChangeLocalTimeCallback())
+                .AddUnit(new ChangeLocalTimeStep()),
+            TelegramState.ChangeLocalTime)
+        .AddUnit(
+            new Pipeline()
+                .AddUnit(new CancelButton())
+                .AddUnit(new ChangeMessageCallback())
                 .AddUnit(new AddTaskCallback())
-                .AddUnit(new AddTaskStep())
-            ,
+                .AddUnit(new AddTaskStep()),
             TelegramState.AddTask)
+        .AddUnit(
+            new Pipeline()
+                .AddUnit(new CancelButton())
+                .AddUnit(new ChangeMessageStep()),
+            TelegramState.ChangeMessage)
     );
 
 builder.Services.AddHostedService<TelegramWorker>();

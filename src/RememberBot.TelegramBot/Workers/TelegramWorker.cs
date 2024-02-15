@@ -4,6 +4,7 @@ using RememberBot.Kernel.Tables;
 using RememberBot.TelegramBot.Services;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace RememberBot.TelegramBot.Workers;
 
@@ -48,9 +49,9 @@ public class TelegramWorker(ILogger<TelegramWorker> logger,
                 }
             }
             
-            if (pipelineResult.CallbackResult != null) {
-                _telegramBotService.Client.AnswerCallbackQueryAsync(
-                    pipelineResult.CallbackResult.CallbackQueryId, null);
+            var callbackQueryId = update.CallbackQuery?.Id;
+            if (update.Type == UpdateType.CallbackQuery && callbackQueryId != null) {
+                _telegramBotService.Client.AnswerCallbackQueryAsync(callbackQueryId, null);
             }
             
             if (pipelineResult.MessageResult is { TgId: not null, Text: not null }) {

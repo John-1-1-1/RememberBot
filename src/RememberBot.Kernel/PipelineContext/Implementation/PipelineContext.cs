@@ -7,5 +7,4 @@ public class PipelineContext {
     public UpdateType Type;
     public Message? Message;
     public CallbackQuery? CallbackQuery;
-    
 }
