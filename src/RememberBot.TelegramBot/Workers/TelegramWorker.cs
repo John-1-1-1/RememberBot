@@ -41,11 +41,14 @@ public class TelegramWorker(ILogger<TelegramWorker> logger,
                     var listTimes = listTasks
                         .GroupBy(t => t.DateTime)
                         .OrderBy(t=> t.First().DateTime);
-                
+
+                    var message = string.Join("\n", 
+                        listTimes.Select(t => "\ud83d\udccc На " + 
+                                              t.First().DateTime.Add(-user.LocalTime) + " \n" + 
+                                              string.Join("", 
+                                                  t.Select(u => "\u2705 " + u.Text + "\n"))));
                     _telegramBotService.Client.SendTextMessageAsync(
-                        user.TgId, string.Join("\n", listTimes.Select(t => "\ud83d\udccc На "+
-                                                                           t.First().DateTime.Add(-user.LocalTime) + " \n" + 
-                                                                           string.Join("", t.Select( u => "\u2705 " + u.Text + "\n")) ))); 
+                        user.TgId, (message == string.Empty?"Задачи ещё не добавлены": message)); 
                 }
             }
             

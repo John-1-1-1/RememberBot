@@ -12,6 +12,10 @@ public class StartCommand: PipelineStep {
         PipelineResult pipelineResult = new PipelineResult();
         
         if (message.Text != "/start") {
+            pipelineResult.MessageResult = new MessageResult() {
+                TgId = message.Chat.Id,
+                Text = "Для регистрации введите /start"
+            };
             return pipelineResult;
         }
         
