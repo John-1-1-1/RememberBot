@@ -4,6 +4,7 @@ using RememberBot.Kernel.PipelineContext.Implementation;
 using RememberBot.TelegramBot.DataBaseContext;
 using RememberBot.TelegramBot.PipelineSteps;
 using RememberBot.TelegramBot.PipelineSteps.AddTask;
+using RememberBot.TelegramBot.PipelineSteps.ChangeDate;
 using RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 using RememberBot.TelegramBot.PipelineSteps.ChangeMessage;
 using RememberBot.TelegramBot.PipelineSteps.None;
@@ -54,10 +55,16 @@ builder.Services.AddSingleton(
         .AddUnit(
             new Pipeline()
                 .AddUnit(new CancelButton())
+                .AddUnit(new ChangeDateCallback())
                 .AddUnit(new ChangeMessageCallback())
                 .AddUnit(new AddTaskCallback())
                 .AddUnit(new AddTaskStep()),
             TelegramState.AddTask)
+        .AddUnit(
+            new Pipeline()
+                .AddUnit(new CancelButton())
+                .AddUnit(new ChangeDateStep()),
+            TelegramState.ChangeDate)
         .AddUnit(
             new Pipeline()
                 .AddUnit(new CancelButton())

@@ -23,8 +23,4 @@
     <ItemGroup>
       <ProjectReference Include="..\RememberBot.Kernel\RememberBot.Kernel.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="PipelineSteps\ChangeDate\" />
-    </ItemGroup>
 </Project>
