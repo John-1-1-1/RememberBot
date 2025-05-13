@@ -6,5 +6,6 @@ public enum TelegramState {
     ChangeLocalTime,
     ChangeDate,
     ChangeMessage,
-    AddTask
+    AddTask,
+    ChangeTask
 }

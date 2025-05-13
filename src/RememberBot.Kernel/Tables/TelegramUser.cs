@@ -7,4 +7,5 @@ public class TelegramUser {
     public TelegramState UserState { get; set; } = TelegramState.None;
     public string Times { get; set; } = string.Empty;
     public string AddedText { get; set; } = string.Empty;
+    public TelegramTask? LastTask { get; set; }
 }

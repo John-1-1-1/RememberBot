@@ -7,15 +7,14 @@ using RememberBot.TelegramBot.PipelineSteps.AddTask;
 using RememberBot.TelegramBot.PipelineSteps.ChangeDate;
 using RememberBot.TelegramBot.PipelineSteps.ChangeLocalTime;
 using RememberBot.TelegramBot.PipelineSteps.ChangeMessage;
+using RememberBot.TelegramBot.PipelineSteps.ChangeTask;
 using RememberBot.TelegramBot.PipelineSteps.None;
 using RememberBot.TelegramBot.PipelineSteps.None.StartStep;
 using RememberBot.TelegramBot.Services;
 using RememberBot.TelegramBot.Workers;
 
 
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
-
+ 
 
 
 var builder = Host.CreateApplicationBuilder(args);
@@ -24,7 +23,7 @@ string? connection = builder.Configuration.GetConnectionString("DefaultConnectio
 
 
 var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
-optionsBuilder.UseNpgsql(connection);
+optionsBuilder.UseSqlite(connection);
 builder.Services.AddScoped<ApplicationContext>(db 
     => new ApplicationContext(optionsBuilder.Options));
 
@@ -57,9 +56,15 @@ builder.Services.AddSingleton(
                 .AddUnit(new CancelButton())
                 .AddUnit(new ChangeDateCallback())
                 .AddUnit(new ChangeMessageCallback())
-                .AddUnit(new AddTaskCallback())
+                .AddUnit(new AddTaskCallback()) 
                 .AddUnit(new AddTaskStep()),
-            TelegramState.AddTask)
+            TelegramState.AddTask) 
+        .AddUnit(
+            new Pipeline()
+                .AddUnit(new CancelButton())
+                .AddUnit(new ChangeMessageStep())
+                .AddUnit(new ChangePriority()),
+            TelegramState.ChangeTask) 
         .AddUnit(
             new Pipeline()
                 .AddUnit(new CancelButton())

@@ -7,7 +7,7 @@ public sealed class ApplicationContext : DbContext {
     public DbSet<TelegramUser> Users { get; set; } = null!;
     public DbSet<TelegramTask> Task { get; set; } = null!;
 
-    public ApplicationContext(DbContextOptions<DbContext> options):  base(options) {
+    public ApplicationContext(DbContextOptions<DbContext> options):  base(options) { 
         Database.EnsureCreated();
     }
 }
